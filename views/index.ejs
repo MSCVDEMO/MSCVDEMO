@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MSCV DEMO</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#submit').click(function (e) {
+                e.preventDefault();
+                $('#responseTextArea').val('Pending');
+                var input = $('#inputImage').val();
+                $('#sourceImage').attr('src', input);
+                $.post('/analyze', { 'src': input }, function (res) {
+                    $('#responseTextArea').val(res);
+                })
+            });
+        });
+    </script>
+
+    <br>
+    <br> 選擇分析的影像:
+    <input type="text" name="inputImage" id="inputImage" />
+    <button id="submit">分析</button>
+    <br>
+    <br>
+    <div id="wrapper" style="width:1020px; display:table;">
+        <div id="jsonOutput" style="width:600px; display:table-cell;">
+            Response:
+            <br>
+            <br>
+            <textarea id="responseTextArea" class="UIInput" style="width:580px; height:400px;"></textarea>
+        </div>
+        <div id="imageDiv" style="width:420px; display:table-cell;">
+            Source image:
+            <br>
+            <br>
+            <img id="sourceImage" width="400" />
+        </div>
+    </div>
+</body>
+
+</html>
